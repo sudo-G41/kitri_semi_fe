@@ -93,7 +93,7 @@ function BbsList() {
 			<table className="table table-hover">
 				<thead>
 					<tr>
-						<th className="col-1">번호</th>
+						<th className="col-1 text-center">번호</th>
 						<th className="col-8">제목</th>
 						<th className="col-3">작성자</th>
 					</tr>
@@ -134,13 +134,13 @@ function TableRow(props) {
 	return (
 			<tr>
 				
-					<th>{props.cnt}</th>
+					<th className="text-center">{props.cnt}</th>
 					{
 						(bbs.del !== 0) ?
 						// 삭제되지 않은 게시글
 						<>
 							<td >
-								<Arrow depth={bbs.depth}></Arrow> &nbsp; { /* 답글 화살표 */}
+								{/* <Arrow depth={bbs.depth}></Arrow> &nbsp; */}
 
 								<Link to={{ pathname: `/bbsdetail/${bbs.id}` }}> { /* 게시글 상세 링크 */}
 									<span className="underline bbs-title" >{bbs.title} </span> { /* 게시글 제목 */}

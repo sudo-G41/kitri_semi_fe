@@ -17,6 +17,14 @@ function BbsDetail() {
 	const navigate = useNavigate();
 
 	const getBbsDetail = async () => {
+		fetch(`http://127.0.0.1:8000/api/posts/detail/${seq}`)
+		.then(res=>{
+			return res.json();
+		})
+		.then(data=>{
+			console.log(data);
+			setBbs(data);
+		})
 
 		// await axios.get(`http://localhost:3000/bbs/${seq}`, {params: {readerId: auth ? auth : ""}})
 		// .then((resp) => {
@@ -105,16 +113,16 @@ function BbsDetail() {
 					<tr>
 						<th>작성일</th>
 						<td>
-							<span>{bbs.createdAt}</span>
+							<span>{new Date(bbs.create_at).toLocaleDateString()}</span>
 						</td>
 					</tr>
 
-					<tr>
+					{/* <tr>
 						<th>조회수</th>
 						<td>
 							<span>{bbs.readCount}</span>
 						</td>
-					</tr>
+					</tr> */}
 
 					<tr>
 						<th>내용</th>
