@@ -24,9 +24,9 @@ install:
   script:
     - npm cache clean --force
     - npm install
-  artifacts:
-    paths:
-      - build
+  # artifacts:
+  #   paths:
+  #     - build
 
 # # React 애플리케이션 빌드
 # build:
