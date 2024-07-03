@@ -7,7 +7,7 @@ services:
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
-  # DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_HOST: "tcp://docker:2375"
   IMAGE_NAME: "$CI_PROJECT_NAME"
   DOCKER_HUB_USER: "seoga9"  # Docker Hub 사용자 이름
   DOCKER_HUB_PASSWORD: "$DOCKER_HUB_PASSWORD"    # Docker Hub 비밀번호 (CI/CD 변수로 설정)
@@ -38,8 +38,8 @@ build:
 deploy:
   stage: deploy
   script:
-    # - sleep 20  # Docker 데몬이 준비될 때까지 대기
-    # - docker info  # Docker 데몬 정보 확인
+    - sleep 20  # Docker 데몬이 준비될 때까지 대기
+    - docker info  # Docker 데몬 정보 확인
     - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
     - docker build -t "$DOCKER_HUB_USER/$IMAGE_NAME:latest" .
     - docker push "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
