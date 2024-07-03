@@ -1,0 +1,42 @@
+image: docker:latest
+
+services:
+  - name: docker:dind
+    alias: docker
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: "tcp://docker:2375"
+  IMAGE_NAME: "$CI_PROJECT_NAME"
+  DOCKER_HUB_USER: "wntls4464"  # Docker Hub 사용자 이름
+  DOCKER_HUB_PASSWORD: "$DOCKER_HUB_PASSWORD"    # Docker Hub 비밀번호 (CI/CD 변수로 설정)
+
+stages:
+  - build
+  - deploy
+
+# React 애플리케이션 빌드
+build:
+  stage: build
+  image: node:14
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - build
+
+# Docker 이미지 빌드 및 Docker Hub에 푸시
+deploy:
+  stage: deploy
+  script:
+    - sleep 20  # Docker 데몬이 준비될 때까지 대기
+    - docker info  # Docker 데몬 정보 확인
+    - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+    - docker build -t "$DOCKER_HUB_USER/$IMAGE_NAME:latest" .
+    - docker push "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
+    - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
+  only:
+    - main
+
