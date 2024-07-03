@@ -21,6 +21,8 @@ build:
   stage: build
   image: node:14
   script:
+    - ls
+    - pwd
     - npm install
     - npm run build
   artifacts:
