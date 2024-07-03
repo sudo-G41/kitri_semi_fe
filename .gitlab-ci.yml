@@ -24,8 +24,6 @@ install:
   script:
     - npm cache clean --force
     - npm install
-    - ls
-    - pwd
   artifacts:
     paths:
       - build
@@ -34,8 +32,6 @@ install:
 build:
   stage: build
   script:
-    - ls
-    - pwd
     - npm run build
 
 # Docker 이미지 빌드 및 Docker Hub에 푸시
