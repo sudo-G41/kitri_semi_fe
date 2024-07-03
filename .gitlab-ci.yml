@@ -24,6 +24,8 @@ install:
   script:
     - npm cache clean --force
     - npm install
+    - ls
+    - pwd
   artifacts:
     paths:
       - build
