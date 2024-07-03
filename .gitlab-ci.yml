@@ -13,26 +13,27 @@ variables:
   DOCKER_HUB_PASSWORD: "$DOCKER_HUB_PASSWORD"    # Docker Hub 비밀번호 (CI/CD 변수로 설정)
 
 stages:
-  # - install
-  # - build
+  - install
+  - build
   - deploy
 
-# # React 애플리케이션 빌드
-# install:
-#   stage: install
-#   image: node:14
-#   script:
-#     - npm cache clean --force
-#     - npm install
-#   # artifacts:
-#   #   paths:
-#   #     - build
+# React 애플리케이션 빌드
+install:
+  stage: install
+  image: node:14
+  script:
+    - sudo su
+    - npm cache clean --force
+    - npm install
+  # artifacts:
+  #   paths:
+  #     - build
 
-# # React 애플리케이션 빌드
-# build:
-#   stage: build
-#   script:
-#     - npm run build
+# React 애플리케이션 빌드
+build:
+  stage: build
+  script:
+    - npm run build
 
 # Docker 이미지 빌드 및 Docker Hub에 푸시
 deploy:
