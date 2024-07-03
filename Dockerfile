@@ -24,5 +24,12 @@ EXPOSE 80
 
 # NGINX 설치 및 설정
 FROM nginx:alpine
-COPY --from=0 /app/build /usr/share/nginx/html
+WORKDIR /app
+COPY --from=0 /app .
+RUN ["rm", "-r", "/usr/share/nginx/html"]
+RUN ["mv", "build/", "/usr/share/nginx/html"]
+RUN ["mv", "nginx/nginx.conf", "/etc/nginx/conf.d"]
+RUN ["rm", "/etc/nginx/conf.d/default.conf"]
+# COPY --from=0 /app/build /usr/share/nginx/html
+
 CMD ["nginx", "-g", "daemon off;"]
