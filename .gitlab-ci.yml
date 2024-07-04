@@ -32,12 +32,27 @@ build:
 # Docker 이미지 빌드 및 Docker Hub에 푸시
 deploy:
   stage: deploy
+  # script:
+  #   - sleep 20  # Docker 데몬이 준비될 때까지 대기
+  #   - docker info  # Docker 데몬 정보 확인
+  #   - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+  #   - docker build -t "$DOCKER_HUB_USER/$IMAGE_NAME:latest" .
+  #   - docker push "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
+  #   - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
+
   script:
+    - echo "Waiting for Docker daemon to be ready..."
     - sleep 20  # Docker 데몬이 준비될 때까지 대기
+    - echo "Checking Docker daemon status..."
     - docker info  # Docker 데몬 정보 확인
+    - if [ $? -ne 0 ]; then exit 1; fi
+    - echo "Logging into Docker Hub..."
     - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
+    - echo "Building Docker image..."
     - docker build -t "$DOCKER_HUB_USER/$IMAGE_NAME:latest" .
+    - echo "Pushing Docker image to Docker Hub..."
     - docker push "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
+    - echo "Running Docker container..."
     - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
   only:
     - main
