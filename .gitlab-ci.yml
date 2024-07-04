@@ -38,7 +38,7 @@ deploy:
     - docker build -t "$DOCKER_HUB_USER/$IMAGE_NAME:latest" .
     - docker push "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
     - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
-    - docker exec -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
+    - docker ps
 
   only:
     - main
