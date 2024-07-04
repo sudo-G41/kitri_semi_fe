@@ -20,7 +20,7 @@ COPY . .
 RUN npm run build
 
 # 포트 노출
-EXPOSE 3000
+EXPOSE 80
 
 # NGINX 설치 및 설정
 FROM nginx:alpine
