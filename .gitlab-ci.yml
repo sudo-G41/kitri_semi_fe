@@ -15,6 +15,7 @@ variables:
 stages:
   # - build
   - deploy
+  - run
 
 # # React 애플리케이션 빌드
 # build:
@@ -31,15 +32,26 @@ stages:
 # Docker 이미지 빌드 및 Docker Hub에 푸시
 deploy:
   stage: deploy
+
   script:
     - sleep 20  # Docker 데몬이 준비될 때까지 대기
     - docker info  # Docker 데몬 정보 확인
     - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
     - docker build -t "$DOCKER_HUB_USER/$IMAGE_NAME:latest" .
     - docker push "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
-    - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
-    - docker ps
+  #   - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
 
+  # only:
+  #   - main
+
+run:
+  stage: run
+  variables:
+    DOCKER_HOST: unix:///var/run/docker.sock  # 로컬 Docker 데몬 설정
+  script:
+    - docker rm -f "$IMAGE_NAME" || true  # 이전에 실행 중인 컨테이너 삭제
+    - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
   only:
     - main
+
 #확인용
