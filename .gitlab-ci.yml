@@ -53,7 +53,7 @@ run:
     DOCKER_HOST: unix:///var/run/docker.sock  # 로컬 Docker 데몬 설정
   script:
     - docker rm -f "$IMAGE_NAME" || true  # 이전에 실행 중인 컨테이너 삭제
-    - docker run -d --name "$IMAGE_NAME" -p 8080:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
+    - docker run -d --name "$IMAGE_NAME" -p 3000:80 "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
   only:
     - main
 
