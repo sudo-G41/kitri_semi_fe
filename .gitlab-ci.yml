@@ -33,9 +33,12 @@ stages:
 deploy:
   stage: deploy
 
+  variables:
+    DOCKER_HOST: unix:///var/run/docker.sock  # 로컬 Docker 데몬 설정
+
   script:
-    - sleep 20  # Docker 데몬이 준비될 때까지 대기
-    - docker info  # Docker 데몬 정보 확인
+    # - sleep 20  # Docker 데몬이 준비될 때까지 대기
+    # - docker info  # Docker 데몬 정보 확인
     - docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASSWORD"
     - docker build -t "$DOCKER_HUB_USER/$IMAGE_NAME:latest" .
     - docker push "$DOCKER_HUB_USER/$IMAGE_NAME:latest"
