@@ -37,7 +37,7 @@ function Join() {
 
 	/* 아이디 중복 체크 */
 	const checkIdDuplicate = async () => {
-		fetch(`/api/users/login`,{
+		fetch(`http://localhost:8000/api/users/login`,{
 			method: "POST",
 			headers: {
 				'accept': 'application/json',

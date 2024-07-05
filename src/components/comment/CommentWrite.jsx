@@ -26,7 +26,7 @@ function CommentWrite(props) {
 			bbsSeq: seq
 		}
 
-		fetch(`/api/answer/create/${seq}`,{
+		fetch(`http://localhost:8000/api/answer/create/${seq}`,{
 			method: "POST",
 			headers: {
 				'accept': ' */*',

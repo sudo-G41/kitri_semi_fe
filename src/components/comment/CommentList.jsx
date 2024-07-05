@@ -18,7 +18,7 @@ function CommentList(props) {
 	}
 
 	const getCommentList = async () => {
-		fetch(`/api/answer/list?post_id=${seq}`,{
+		fetch(`http://localhost:8000/api/answer/list?post_id=${seq}`,{
 			method: "POST"
 		})
 		.then((res)=>{

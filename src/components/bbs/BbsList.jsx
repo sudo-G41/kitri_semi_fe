@@ -23,7 +23,7 @@ function BbsList() {
 
 	/* [GET /bbs]: 게시글 목록 */
 	const getBbsList = async () => {
-		fetch(`api/posts/list?page=${page}&size=10`)
+		fetch(`http://localhost:8000/api/posts/list?page=${page}&size=10`)
         .then(res=>{
 			return res.json()
 		})
