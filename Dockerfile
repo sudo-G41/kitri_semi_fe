@@ -60,7 +60,6 @@ COPY --from=build /app/build /usr/share/nginx/html
 # Copy custom nginx configuration if needed
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-RUN ls /etc/nginx/conf.d
 
 # Expose port 80
 EXPOSE 80
