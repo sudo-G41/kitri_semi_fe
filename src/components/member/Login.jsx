@@ -28,7 +28,7 @@ function Login() {
 			pwd: pwd
 		}
 
-		fetch(`http://localhost:8000/api/users/login/token`,{
+		fetch(`/api/users/login/token`,{
 			method: "POST",
 			headers: {
 				'accept': ' application/json',

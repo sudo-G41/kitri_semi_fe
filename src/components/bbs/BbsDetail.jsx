@@ -17,8 +17,7 @@ function BbsDetail() {
 	const navigate = useNavigate();
 
 	const getBbsDetail = async () => {
-		// fetch(`/api/posts/detail/${seq}`)
-		fetch(`http://localhost:8000/api/posts/list/${seq}`)
+		fetch(`/api/posts/list/${seq}`)
 		.then(res=>{
 			return res.json();
 		})

@@ -30,7 +30,7 @@ function BbsWrite() {
 			content: content
 		}
 
-		fetch("http://localhost:8000/api/posts/create",{
+		fetch("/api/posts/create",{
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
