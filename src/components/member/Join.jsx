@@ -73,6 +73,14 @@ function Join() {
 
 	/* 회원가입 */
 	const join = async () => {
+		if(pwd!==checkPwd){
+			alert("비밀번호를 다시 확인해 주세요.");
+			return;
+		}
+		else if(pwd.length<8){
+			alert("비밀번호가 너무 짧습니다.");
+			return;
+		}
 		fetch("/api/users/create",{
 			method: "POST",
 			headers: {
@@ -80,6 +88,7 @@ function Join() {
 				'Content-Type': ' application/json',
 			},
 			body: JSON.stringify({
+				"user_id": 0,
 				"username": id,
 				"user_pw1": pwd,
 				"user_pw2": checkPwd,
@@ -94,7 +103,7 @@ function Join() {
 					navigate("/bbslist");
 					break;
 				case 409:
-					alert("이미 가입한 이메일입니다.");
+					alert("이미 가입한 아이디 또는 이메일입니다.");
 					break;
 				case 422:
 					alert("모든 정보를 다시 확인해 주세요");
@@ -125,6 +134,7 @@ function Join() {
 						<th>비밀번호</th>
 						<td>
 							<input type="password" value={pwd} onChange={changePwd} size="50px" />
+							{(pwd.length<8)&& <div>너무 짧습니다. 8자리 이상으로 설정해 주세요.</div>}
 						</td>
 					</tr>
 
@@ -132,6 +142,7 @@ function Join() {
 						<th>비밀번호 확인</th>
 						<td>
 							<input type="password" value={checkPwd} onChange={changeCheckPwd} size="50px" />
+							{(checkPwd.length<8)&& <div>너무 짧습니다. 8자리 이상으로 설정해 주세요.</div>}
 						</td>
 					</tr>
 

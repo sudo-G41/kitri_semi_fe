@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Pagination from "react-js-pagination";
+// import Pagination from "react-js-pagination";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Pagination } from "react-bootstrap";
 
 import "../../css/bbslist.css";
 import "../../css/page.css";
@@ -16,6 +19,8 @@ function BbsList() {
 	// Paging
 	const [page, setPage] = useState(0);
 	const [totalCnt, setTotalCnt] = useState(0);
+	const [pageN, setPageN] = useState(0);
+	const [maxPage, setMaxPage] = useState(0);
 
 	// Link 용 (함수) 
 	let navigate = useNavigate();
@@ -23,7 +28,7 @@ function BbsList() {
 
 	/* [GET /bbs]: 게시글 목록 */
 	const getBbsList = async () => {
-		fetch(`/api/posts/list?page=${page}&size=10`)
+		fetch(`/api/posts/list?page=${pageN}&size=10`)
         .then(res=>{
 			return res.json()
 		})
@@ -31,6 +36,7 @@ function BbsList() {
 			console.log(data)
 
 			setBbsList(data.posts_list);
+			setMaxPage(Math.floor(data.total/10));
 		})
 		.catch((err) => {
 			console.log("[BbsList.js] useEffect() error :<");
@@ -40,7 +46,7 @@ function BbsList() {
 
 	useEffect(() => {
 		getBbsList("", "", 1);
-	}, []);
+	}, [pageN]);
 
 
 	const changeChoice = (event) => { setChoiceVal(event.target.value); }
@@ -103,6 +109,13 @@ function BbsList() {
 				</tbody>
 			</table>
 
+			<Pagination>
+				<Pagination.First onClick={()=>{setPageN(0)}}/>
+				<Pagination.Prev onClick={()=>{pageN? setPageN(pageN-1): alert("더이상 이동할 수 없습니다.")}}/>
+				<Pagination.Item>{pageN + 1}</Pagination.Item>
+				<Pagination.Next onClick={()=>{pageN<maxPage? setPageN(pageN+1): alert("더이상 이동 할 수 없습니다!")}} />
+				<Pagination.Last onClick={()=>{setPageN(maxPage)}}/>
+			</Pagination>
 			{/* <Pagination className="pagination"
 				activePage={page}
 				itemsCountPerPage={10}

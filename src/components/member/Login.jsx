@@ -93,3 +93,48 @@ function Login() {
 }
 
 export default Login;
+
+const Captcha = ()=>{
+	function showMyCaptcha() {
+		var container = document.querySelector("#my-captcha-container");
+		
+		AwsWafCaptcha.renderCaptcha(container, {
+			apiKey: "DrONymZXRld0vRCmr056nNS6hF+3DusCQmHCgSXuqm1wTxgJIfGTlaPGuawK5HiR0wOlLPa6+p6w423PavDvsQO7gvmntdQehrQpl1LERHiN/d4x3rMNmknl1PkOPOJVTDVbSMqfqGnuqGotsa9pPo5R3BkSy8GqaSMRzzek3cEzofpDq7SvAzPtyumhpUXMzG3RdriFrnUuNSNHHeQUTmobBVUolz+LNFClWUx6PKsqdP42rqxXUYJiSgm+SlkGcNKBagIcqwJYmfeODi0G/ik3iemBT4BxAPJ575HBXpDOwrX9pKGSJTAr3veexrZwVD23tCYtyCWtogfITGI6194Qcci7z34M13HTPmFpSH/WdlK+rwLv98Sy0dJrHFMyHKaah2iMjWItvR18F2k/Jj4GeHQLD4Fk+fROZUffE7FqOtzJ6HxNgMwMt1EmooZsexwDjgWds6gU+7YF3z26PAmmIJw3hxbeeBGTTG/SBjvBIxsYhEtRANQYPG1wHOzxDPWVwuSkKnpcnjf/mBP6obryMSIBzLAkm/SknPeUx9LmohbVrW/ULgqWdjLzJ+cJIMXyIoXUHuLUY9Cy1Ys97OzqMbZXIS8EoKcVkSOPx7hmgkrTx61usioDSxqVmkTwHZfXRBPXhep6EGDOiMdmVfFhZMNEap8emgFabFKXHK4=_0_1",
+			onSuccess: captchaExampleSuccessFunction,
+			onError: captchaExampleErrorFunction,
+			dynamicWidth: true, 
+            skipTitle: true
+		});
+	}
+	
+	function captchaExampleSuccessFunction(wafToken) {
+		// Captcha completed. wafToken contains a valid WAF token. Store it for
+		// use later or call AwsWafIntegration.fetch() to use it easily.
+		// It will expire after a time, so calling AwsWafIntegration.getToken()
+		// again is advised if the token is needed later on, outside of using the
+		// fetch wrapper.
+		
+		// Use WAF token to access protected resources
+		// AwsWafIntegration.fetch("...WAF-protected URL...", {
+		// 	method: "POST",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// 	body: "{ ... }" /* body content */
+		// });
+		alert("test");
+	}
+	
+	function captchaExampleErrorFunction(error) {
+		/* Do something with the error */
+	}
+	return(
+		<>
+			<script type="text/javascript">
+				showMyCaptcha();
+			</script>
+			<div id="my-captcha-container">
+			</div>
+		</>
+	);
+}

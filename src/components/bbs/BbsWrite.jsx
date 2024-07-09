@@ -37,8 +37,9 @@ function BbsWrite() {
 				"accept": "*/*"
 			},
 			body: JSON.stringify({
-				"type": 1,
-				"user_id": 1,
+				"type": 0,
+				"post_id": 0,
+				"user_id": 0,
 				"title": title,
 				"content": content,
 				"create_date": new Date(),

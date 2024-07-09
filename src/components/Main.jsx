@@ -20,6 +20,7 @@ return (
           <Body />
         </HttpHeadersProvider>
       </AuthProvider>
+      <div className="dumefooter"/>
       <Footer />
     </BrowserRouter>
   </div>

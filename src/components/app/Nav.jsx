@@ -7,7 +7,7 @@ const Nav =()=>{
 	const { auth, setAuth } = useContext(AuthContext);
 
 	return (
-		<nav className="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+		<nav className="navbar navbar-expand-md navbar-dark bg-dark sticky-top navihi">
 			<div className="container">
 
 				<div className="navbar-collapse collapse justify-content-between" id="navbar-content">

@@ -11,7 +11,7 @@ const Footer =()=>{
             </ul>
 
             <p>
-              <small>Copyright &copy;NaYeon Kwon</small>
+              {/* <small>Copyright &copy;NaYeon Kwon</small> */}
             </p>
           </div>
         </footer>
